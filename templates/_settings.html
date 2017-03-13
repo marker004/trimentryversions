@@ -1,0 +1,39 @@
+{% extends '_layouts/cp' %}
+{% set title = 'Trim Entry Versions' %}
+
+{% set crumbs = [
+    { label: 'Settings'|t, url: url('settings') },
+    { label: 'Plugins'|t, url: url('settings/plugins') },
+] %}
+
+{% import '_includes/forms' as forms %}
+
+{% set content %}
+
+    <div class="warning">
+      <h2>{{ 'Backup your Database first! This trims entry versions, keeping the maximum number of versions you choose.'|t }}</h2>
+    </div>
+
+    <form method="post" accept-charset="UTF-8" data-saveshortcut>
+        {{ getCsrfInput() }}
+
+        <input type="hidden" name="action" value="trimEntryVersions/delete">
+
+        <div class="field">
+          <div class="heading">
+            <label for="numberToTruncate"><b>How many versions to keep?</b></label><br>
+            <div class="instructions">
+              <p>Keep between 0 and 5 old versions of each entry.</p>
+            </div>
+          </div>
+
+          <div class="input ltr">
+            <input type="number" name="numberToTruncate" value="1" min="0" max="5" id="numberToTruncate" class="text">
+          </div>
+        </div>
+
+        <div class="buttons">
+          <input type="submit" class="btn submit" value="{{ 'Trim Entry Versions'|t }}">
+        </div>
+    </form>
+{% endset %}
