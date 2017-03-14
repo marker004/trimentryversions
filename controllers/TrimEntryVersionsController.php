@@ -14,6 +14,9 @@ class TrimEntryVersionsController extends BaseController
     public function actionDelete()
     {
         $number_to_keep = intval($_POST['numberToTruncate']);
+        $initial_memory = ini_get('memory_limit');
+
+        ini_set('memory_limit', '1024M');
 
         if (craft()->getEdition() >= Craft::Client) {
 
@@ -54,6 +57,8 @@ class TrimEntryVersionsController extends BaseController
 
             }
         }
+
+        ini_set('memory_limit', $initial_memory);
 
         $this->redirectToPostedUrl();
     }
